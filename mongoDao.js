@@ -54,10 +54,10 @@ router.get('/api/v2/entries/:id.json', function(req, res){
         //find({_id:ObjectId("56fab77f6ab3ead947e97973")})
         db.collection('entries').find({_id:id}).toArray(function(err, result) {
             if (err) {
-                console.log(`Reading _id ${id} failed: ${err}`)
+                console.log(`Reading _id ${id} failed: ${err}`);
                 throw err;
             }
-            console.log(`Reading _id succeeded with result: ${result[0]}`)
+            console.log(`Reading _id succeeded with result: ${result[0].data}`);
             res.status(201).json(result[0]);
             db.close();
         });
@@ -81,10 +81,10 @@ router.put('/api/v2/entries/:id.json', function(req, res){
         }
         db.collection('entries').update({_id:id}, object, function(err, result) {
             if (err) {
-                console.log(`Updating _id ${id} failed: ${err}`)
+                console.log(`Updating _id ${id} failed: ${err}`);
                 throw err;
             }
-            console.log(`Updating _id succeeded with result: ${result}`)
+            console.log(`Updating _id succeeded with result: ${result}`);
             res.sendStatus(204);
             db.close();
         });
@@ -103,10 +103,10 @@ router.delete('/api/v2/entries/:id', function(req, res){
         //find({_id:ObjectId("56fab77f6ab3ead947e97973")})
         db.collection('entries').remove({_id:id}, function(err, result) {
             if (err) {
-                console.log(`Deleting _id ${id} failed: ${err}`)
+                console.log(`Deleting _id ${id} failed: ${err}`);
                 throw err;
             }
-            console.log(`Deleting _id succeeded with result: ${result}`)
+            console.log(`Deleting _id succeeded with result: ${result.data}`);
             res.sendStatus(204);
             db.close();
         });

@@ -38,17 +38,16 @@ app.use(favicon(WEB + '/favicon.ico'));
 app.use(express.static(WEB, {maxAge: '12h'}));
 app.get('*', function(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
-    res.status(404).sendFile(WEB + '/github404.png');
+    res.status(404).sendFile(WEB + '/404Error.png');
 });
 
 //var config = JSON.parse(fs.readFileSync("/dev/nodejs/resumeServer.json"));
-var port = process.env.port || 8080;
+var port = 3000;//process.env.port || 8080;
 var server = app.listen(port);
 
 function gracefulShutdown(){
     console.log('\nStarting Shutdown');
     server.close(function(){
-        connection.end();
         console.log('Shutdown complete.');
     });
 }
