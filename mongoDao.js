@@ -3,9 +3,12 @@ var router = express.Router();
 var mongo = require('mongodb');
 var mongoClient = mongo.MongoClient;
 
+var ipaddr = '192.168.99.100';
+var dbname = 'mongodb://192.168.99.100:27017/test';
+
 // REST API V2 calls go here.
 router.get('/api/v2/entries.json', function(req, res) {
-    mongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+    mongoClient.connect(dbname, function(err, db) {
         if (err) {
             throw err;
         }
@@ -28,7 +31,7 @@ router.post('/api/v2/entries.json', function(req, res){
     newObj.subject = req.body.subject;
     newObj.content = req.body.content;
 
-    mongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+    mongoClient.connect(dbname, function(err, db) {
         if (err) {
             throw err;
         }
@@ -46,7 +49,7 @@ router.post('/api/v2/entries.json', function(req, res){
 router.get('/api/v2/entries/:id.json', function(req, res){
     var id = new mongo.ObjectId(req.params.id);
 
-    mongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+    mongoClient.connect(dbname, function(err, db) {
         if (err) {
             throw err;
         }
@@ -75,7 +78,7 @@ router.put('/api/v2/entries/:id.json', function(req, res){
     object.subject = subject;
     object.content = content;
 
-    mongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+    mongoClient.connect(dbname, function(err, db) {
         if (err) {
             throw err;
         }
@@ -95,7 +98,7 @@ router.put('/api/v2/entries/:id.json', function(req, res){
 router.delete('/api/v2/entries/:id', function(req, res){
     var id = new mongo.ObjectId(req.params.id);
 
-    mongoClient.connect('mongodb://localhost:27017/test', function(err, db) {
+    mongoClient.connect(dbname, function(err, db) {
         if (err) {
             throw err;
         }
