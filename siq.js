@@ -45,6 +45,14 @@ app.get('*', function(req, res) {
 //var config = JSON.parse(fs.readFileSync("/dev/nodejs/resumeServer.json"));
 var port = 3000;//process.env.port || 8080;
 var server = app.listen(port);
+var io = require('socket.io');
+
+io.listen(server).on('connection', function (socket) {
+    socket.on('message', function (msg) {
+        console.log('Message Received: ', msg);
+        socket.broadcast.emit('message', msg);
+    });
+});
 
 function gracefulShutdown(){
     console.log('\nStarting Shutdown');

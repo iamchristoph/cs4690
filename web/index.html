@@ -19,7 +19,8 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="scripts/modal.js"></script>
-    
+    <script src="scripts/chat.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <link rel="stylesheet" href="/css/siq.css">
   </head>
 
@@ -46,23 +47,31 @@
     </nav>
 
     <div class="container">
-      <div class="row" ng-repeat="entry in siq.data | filter:siq.search">
-        <div class="entry">
-          <hr/>
-            <div class="entryBox" >
-              <div class="entry-heading" ng-click="siq.getEntry($index)">
-                <span class="arrow glyphicon glyphicon-menu-right" ng-show="siq.panelNum != $index"></span>
-                <span class="arrow glyphicon glyphicon-menu-down" ng-show="siq.panelNum == $index"></span>
-                <span class="clickable">{{entry.subject}}</span>
-                <span class="pull-right">
-                  <span class="edit-icon glyphicon glyphicon-pencil clickable" title="Edit Entry" data-toggle="modal" data-target="#upsertModal" ng-click="siq.editClick($index)"></span>
-                  <span class="del-icon glyphicon glyphicon-trash clickable" title="Delete Entry" ng-click="siq.deleteEntry($index)"></span>
-                </span>
+      <div class="row">
+        <div class="col-lg-8">
+        <div class="row" ng-repeat="entry in siq.data | filter:siq.search">
+          <div class="entry">
+            <hr/>
+              <div class="entryBox" >
+                <div class="entry-heading" ng-click="siq.getEntry($index)">
+                  <span class="arrow glyphicon glyphicon-menu-right" ng-show="siq.panelNum != $index"></span>
+                  <span class="arrow glyphicon glyphicon-menu-down" ng-show="siq.panelNum == $index"></span>
+                  <span class="clickable">{{entry.subject}}</span>
+                  <span class="pull-right">
+                    <span class="edit-icon glyphicon glyphicon-pencil clickable" title="Edit Entry" data-toggle="modal" data-target="#upsertModal" ng-click="siq.editClick($index)"></span>
+                    <span class="del-icon glyphicon glyphicon-trash clickable" title="Delete Entry" ng-click="siq.deleteEntry($index)"></span>
+                  </span>
+                </div>
+                <br/>
+                <div class="entry-body" ng-show="siq.panelNum == $index">{{entry.content}}</div>
               </div>
-              <br/>
-              <div class="entry-body" ng-show="siq.panelNum == $index">{{entry.content}}</div>
-            </div>
-          
+          </div>
+
+        </div>
+        </div>
+        <div class="col-lg-4">
+          Incoming Chat: <div class="row" id="incomingChatMessages"></div>
+          <input type="text" placeholder="chat" id="outgoingChatMessage">
         </div>
       </div>
       
