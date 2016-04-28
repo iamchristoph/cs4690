@@ -1,7 +1,7 @@
 var app = angular.module('siqApp', []);
 app.controller('siqController', function($scope, $http){
 
-	var url = 'http://localhost:3000/api/v1';
+	var url = 'http://localhost:3000/api/v3';
 	var siq = this;
 	siq.undo = [];
 	

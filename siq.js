@@ -3,6 +3,7 @@ var fs = require('fs');
 var express = require('express');
 var mongoDao = require('./mongoDao');
 var mysqlDao = require('./mysqlDao');
+var myredisDao = require('./redisDao');
 
 //modules below are express middleware
 var bodyParser = require('body-parser');
@@ -30,7 +31,7 @@ app.use(allowCrossDomain);
 
 app.use('/', mongoDao);
 app.use('/', mysqlDao);
-
+app.use('/', myredisDao);
 
 //traditional webserver stuff for serving static files
 var WEB = __dirname + '/web';
